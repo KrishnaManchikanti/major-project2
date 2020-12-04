@@ -10,8 +10,21 @@ module.exports.home=(req,res)=>{
 };
 
 module.exports.home2=(req,res)=>{
-    res.render('temp');
-    return;
+    if(req.cookies.user_id){
+        User.findById(req.cookies.user_id,(err,user)=>{
+            if(user){
+              return  res.render('ur_in',{
+                    username:user.name,
+                    password:user.password,
+                    email:user.email
+                });
+            }
+            res.render('temp');
+        });
+    }else{
+        res.render('temp');
+        return;
+    }
 };
 
 module.exports.signup=(req,res)=>{
@@ -47,4 +60,37 @@ module.exports.signup=(req,res)=>{
         }
     });
 };
+// we will check the username and pass is crct and we create cokkie and add details into cokkie and send it to browser,server,db
+module.exports.signin = (req,res)=>{
+    console.log(req.body);
+    signUp.findOne({
+        email:req.body.email
+    },(err,user)=>{
+        if(err){
+            console.log(`err in username/password ${err}`);
+            return;
+        }
+        console.log(user);
+        if(user){
+            if(user.password != req.body.password){
+                console.log('pas incrt');
+                return res.redirect('back');
+            }
+            //handling the session cookie
+            res.cookie('user_id',user.id);
+            res.render('ur_in',{
+                username:user.name,
+                password:user.password,
+                email:user.email
+            });
+        }else{
+            console.log('email not found');
+            return res.redirect('back');
+        }
+    });
+};
 
+module.exports.signout = (req,res)=>{
+     res.clearCookie("user_id");
+     return res.render('temp');
+};
