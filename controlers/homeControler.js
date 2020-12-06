@@ -5,10 +5,16 @@ const signUp = require('../models/user');
 
 module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
+    if(req.isAuthenticated()){
+        return res.redirect('/profile');
+    }
     return res.render('sign_up');
 };
 
 module.exports.SignInPage=(req,res)=>{
+    if(req.isAuthenticated()){
+       return res.redirect('/profile');
+    }
     return res.render('sign_in');
 };
 
