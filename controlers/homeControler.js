@@ -5,13 +5,15 @@ const signUp = require('../models/user');
 
 module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
-    res.render('sign_up');
-    return;
+    return res.render('sign_up');
 };
 
 module.exports.SignInPage=(req,res)=>{
-    res.render('sign_in');
-    return;
+    return res.render('sign_in');
+};
+
+module.exports.profile=(req,res)=>{
+   return res.render('user_profile_page');
 };
 
 module.exports.signup=(req,res)=>{
@@ -39,7 +41,6 @@ module.exports.signup=(req,res)=>{
                 }
                 console.log(`success in creating signup ${newSignup}`);
                 return res.redirect('/signin');
-                // return res.render('temp');
             });
         }else{
             console.log('email already used');
@@ -49,6 +50,6 @@ module.exports.signup=(req,res)=>{
 };
 //create session
 module.exports.signin = (req,res)=>{
-    return res.render('user_profile_page');
+    return res.redirect('/profile');
     // return res.redirect('/');
 };

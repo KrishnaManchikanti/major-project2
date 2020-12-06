@@ -32,7 +32,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+//whenever user is authenticated, we will store identity to locals(index.js)
+app.use(passport.setAuthenticateduser);
 app.use('/',require('./routes'));
 
 // killall -9 node

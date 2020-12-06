@@ -5,7 +5,7 @@ const homeController = require('../controlers/homeControler');
 const passport = require('passport');
 console.log('r loaded');
 
-
+router.get('/profile',passport.checkAuthentication,homeController.profile);
 router.get('/',homeController.SignUpPage);
 router.get('/signin',homeController.SignInPage);
 
