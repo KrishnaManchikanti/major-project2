@@ -3,14 +3,14 @@ const User = require("../models/user");
 
 const signUp = require('../models/user');
 
-module.exports.home=(req,res)=>{
+module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
-    res.render('home');
+    res.render('sign_up');
     return;
 };
 
-module.exports.home2=(req,res)=>{
-    res.render('temp');
+module.exports.SignInPage=(req,res)=>{
+    res.render('sign_in');
     return;
 };
 
@@ -38,7 +38,7 @@ module.exports.signup=(req,res)=>{
                     return;
                 }
                 console.log(`success in creating signup ${newSignup}`);
-                return res.redirect('/home2');
+                return res.redirect('/signin');
                 // return res.render('temp');
             });
         }else{
@@ -47,4 +47,8 @@ module.exports.signup=(req,res)=>{
         }
     });
 };
-
+//create session
+module.exports.signin = (req,res)=>{
+    return res.render('user_profile_page');
+    // return res.redirect('/');
+};
