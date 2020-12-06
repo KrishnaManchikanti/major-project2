@@ -8,7 +8,15 @@
         this is the header
     </header>
     <%- body %>
-    
+    <ul>
+        <% if(locals.user){%>
+            <h1><a href="/sign-out">Signout</a></h1>
+        <%}else{%>
+            <h1><a href="/">Home</a></h1>
+            <h1><a href="/signin">SignIn</a></h1>
+            <h1><a href="/signup">SignUp</a></h1>
+        <%} %>
+    </ul>
     <%- script%>
     <footer>
         this is the footer

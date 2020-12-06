@@ -3,6 +3,10 @@ const User = require("../models/user");
 
 const signUp = require('../models/user');
 
+module.exports.home = (req,res)=>{
+    return res.render('home');
+};
+
 module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
     if(req.isAuthenticated()){
@@ -57,5 +61,9 @@ module.exports.signup=(req,res)=>{
 //create session
 module.exports.signin = (req,res)=>{
     return res.redirect('/profile');
-    // return res.redirect('/');
+};
+
+module.exports.signout = (req,res)=>{
+    req.logout();
+    return res.redirect('/');
 };
