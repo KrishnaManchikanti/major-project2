@@ -1,0 +1,13 @@
+
+    <div id="main-header">
+            <ul id="links">
+                <span id="title">MAJOR_PROJECT2</span>
+                <% if(locals.user){%>
+                    <a href="/sign-out">Signout</a>
+                <%}else{%>
+                    <a href="/">Home</a>
+                    <a href="/signin">SignIn</a>
+                    <a href="/signup">SignUp</a>
+                <%} %>
+            </ul>
+    </div>

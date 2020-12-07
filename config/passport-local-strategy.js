@@ -56,6 +56,7 @@ passport.checkAuthentication = (req, res, next)=>{
 passport.setAuthenticateduser = (req, res , next)=>{
     if(req.isAuthenticated()){
         // req.user contains curr authiticated user we r sending into locals for views
+        // we have created a variable called user in locals so,that u can use in ejs:)
         res.locals.user = req.user;
     }
     next();

@@ -1,0 +1,11 @@
+<div id="footer">
+    <a href="mailto:mkrishna_1998@yahoo.com">krishna@yahoo.com</a>
+    
+    <% if(locals.user){%>
+        <a href="/sign-out">Signout</a>
+    <%}else{%>
+        <a href="/">Home</a>
+        <a href="/profile">Profile</a>
+    <%} %>
+    <span id="copy-right">&copy; Krishna Manchikanti. All rights reserved</span>
+</div>

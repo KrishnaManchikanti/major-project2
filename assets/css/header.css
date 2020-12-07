@@ -1,0 +1,15 @@
+#main-header {
+  height: 70px;
+  background-color: rebeccapurple; }
+  #main-header #title {
+    margin-top: 15px;
+    color: white;
+    font-size: 20px; }
+  #main-header #links {
+    display: flex;
+    justify-content: space-around; }
+  #main-header a {
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px; }
