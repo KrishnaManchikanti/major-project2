@@ -20,7 +20,7 @@ passport.use(new LocalStrategy({
                 console.log(`Invalid user/password`);
                 return done(null,false);
             }
-            console.log('Valid user- ur in');
+            console.log('Valid user- ur in',user);
             return done(null, user);
         });
     }
@@ -50,7 +50,7 @@ passport.checkAuthentication = (req, res, next)=>{
         return next();
     }
     //if not send back to signin page
-    return res.redirect('/signin');
+    return res.redirect('/users/signin');
 };
 
 passport.setAuthenticateduser = (req, res , next)=>{

@@ -1,23 +1,18 @@
-const { model } = require("../../MAJOR-PROJECT1/models/Schema");
 const User = require("../models/user");
 
-const signUp = require('../models/user');
 
-module.exports.home = (req,res)=>{
-    return res.render('home');
-};
 
 module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
     if(req.isAuthenticated()){
-        return res.redirect('/profile');
+        return res.redirect('/users/profile');
     }
     return res.render('sign_up');
 };
 
 module.exports.SignInPage=(req,res)=>{
     if(req.isAuthenticated()){
-       return res.redirect('/profile');
+       return res.redirect('/users/profile');
     }
     return res.render('sign_in');
 };
@@ -39,7 +34,7 @@ module.exports.signup=(req,res)=>{
             return;
         }
         if(!user){
-            signUp.create({
+            User.create({
                 // req.body- takeout the brackets when u use this
                 email:req.body.email,
                 password:req.body.password,
@@ -50,7 +45,7 @@ module.exports.signup=(req,res)=>{
                     return;
                 }
                 console.log(`success in creating signup ${newSignup}`);
-                return res.redirect('/signin');
+                return res.redirect('/users/signin');
             });
         }else{
             console.log('email already used');
@@ -60,10 +55,11 @@ module.exports.signup=(req,res)=>{
 };
 //create session
 module.exports.signin = (req,res)=>{
-    return res.redirect('/profile');
+    return res.redirect('/');
 };
 
 module.exports.signout = (req,res)=>{
     req.logout();
     return res.redirect('/');
 };
+
