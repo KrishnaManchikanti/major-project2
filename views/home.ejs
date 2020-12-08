@@ -3,10 +3,13 @@
 
 <section>
     <h4>Posts</h4>
-    <form action="/posts/create" method="POST">
-        <textarea name="content"  cols="30" rows="3" placeholder="Type Here...."></textarea>
-        <input type="submit" value="Post">
-    </form>
+    <%if(locals.user){%>
+        <form action="/posts/create" method="POST">
+            <textarea name="content"  cols="30" rows="3" placeholder="Type Here...."></textarea>
+            <input type="submit" value="Post">
+        </form>
+    <%}%>
+
     <ul id="all-posts">
         <%for(let i of posts){%>
             <li><%= i.content%></li>
