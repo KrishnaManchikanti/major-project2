@@ -11,10 +11,16 @@
     <%}%>
     
             <br>
-            <%=posts%>
+            <!-- <%=posts%> -->
             <br>
     <ul id="all-posts">
         <%for(let i of posts){%>
+            <%if (locals.user && locals.user.id == i.user.id){%>
+                <small>
+                    <a href="/posts/destroy/<%=i.id%>">X</a>
+                </small>
+            <%}%>
+            
             <li><%= i.content%></li>
             <small>
                 <!-- the id in the user(post) is replaced by actual user -->

@@ -1,5 +1,5 @@
 const Post = require('../models/post');
-
+const Comment = require('../models/comment');//for deleteing comments
 module.exports.create = (req,res)=>{
     // console.log(`id of the user - ${req.user._id}`);
     Post.create({
@@ -17,3 +17,18 @@ module.exports.create = (req,res)=>{
     });
 };
 
+
+module.exports.destroy = (req,res)=>{
+    Post.findById(req.params.id,(err,post)=>{
+        //.id means converting objectid to string
+        if(post.user == req.user.id){
+            post.remove();
+            Comment.deleteMany({post: req.params.id},(err)=>{
+                return res.redirect('back');
+            })
+        }else{
+            console.log('not a valid user');
+            return res.redirect('back');
+        }
+    });
+};
