@@ -1,5 +1,5 @@
 
-<h1>Welcome Page!  </h1>
+<h1> Welcome Page! </h1>
 
 <section id="feed-posts">
     <h4>Posts</h4>
@@ -9,7 +9,10 @@
             <input type="submit" value="Post">
         </form>
     <%}%>
-
+    
+            <br>
+            <%=posts%>
+            <br>
     <ul id="all-posts">
         <%for(let i of posts){%>
             <li><%= i.content%></li>
@@ -25,8 +28,18 @@
                         <input type="submit" value="add comment">
                     </form>
                 <%}%>
+                <div class="post-comments-list">
+                    <ul id="post-comments-<%=i._id%>">
+                        <%for(let comments of i.comments){%>
+                        <p>
+                            <li><%= comments.content%></li>
+                            <small><%=comments.user.email%></small>
+                        </p>
+                        <%}%>
+                    </ul>
+                </div>
             </div>
-            
         <%}%>
+        
     </ul>
 </section>
