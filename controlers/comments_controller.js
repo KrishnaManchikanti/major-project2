@@ -21,6 +21,34 @@ module.exports.create = (req,res)=>{
             });
         }
     });
+};
+
+
+module.exports.destroy = (req,res)=>{
     
+    Comment.findById(req.params.id,(err,comment)=>{
+       
+        Post.findById(comment.post,(err,post)=>{
+            console.log(post.user ,req.user.id);
+            if(comment.user == req.user.id || post.user == req.user.id){
+                let postid= comment.post;
+                Comment.remove();
+                //updating post by removing commentsid
+                Post.findByIdAndUpdate(postid,{$pull:{comments:req.params.id}},(err,post)=>{
+                    return res.redirect('back');
+                });
+                // comment.deleteOne({user:req.params.id},(err)=>{
+                //     res.redirect('back');
+                //     return;
+                // })lol, jst use this
+                
+            }else{
+                console.log('not a valid user');
+                res.redirect('back');
+                return;
+            }
+        })
+        
+    });
     
 };

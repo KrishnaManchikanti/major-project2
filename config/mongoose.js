@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/MJ2_development', { useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/MJ2_development', { useNewUrlParser: true,useUnifiedTopology: true, useFindAndModify: false });
 
 const db =  mongoose.connection;
 

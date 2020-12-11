@@ -3,8 +3,9 @@
             <ul id="links">
                 <span id="title">MAJOR_PROJECT2</span>
                 <% if(locals.user){%>
+                    
                     <a href="/">Home</a>
-                    <a href="/users/profile">Profile</a>
+                    <a href="/users/profile/<%= locals.user.id%>"><%=user.name%></a>
                     <a href="/users/sign-out">Signout</a>
                 <%}else{%>
                     <a href="/">Home</a>
@@ -13,3 +14,4 @@
                 <%} %>
             </ul>
     </div>
+    

@@ -1,5 +1,5 @@
 const posts = require('../models/post');
-
+const User = require('../models/user');
 const comments = require('../models/comment');
 module.exports.home = (req,res)=>{
     // posts.find({},(err,posts)=>{
@@ -24,10 +24,15 @@ module.exports.home = (req,res)=>{
             console.log(`err in finding posts${err}`);
             return;
         }
-        return res.render('home',{
-            posts:posts,
-            comments:'hello'
-        }); 
+        User.find({},(err,users)=>{
+            return res.render('home',{
+                posts:posts,
+                comments:'hello',
+                all_users:users
+            }); 
+        })
+        
+        
     });
 };
 
@@ -43,3 +48,5 @@ module.exports.home = (req,res)=>{
 //         }); 
 //     });
 // };
+
+

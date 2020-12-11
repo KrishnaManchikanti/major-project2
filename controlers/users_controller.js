@@ -18,7 +18,26 @@ module.exports.SignInPage=(req,res)=>{
 };
 
 module.exports.profile=(req,res)=>{
-   return res.render('user_profile_page');
+    User.findById(req.params.id,(err,user)=>{
+        return res.render('user_profile_page',{
+            profile_user:user
+        });
+    });
+};
+
+module.exports.update = (req,res)=>{
+    //in params we have profile userid
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id,{
+            name:req.body.name,
+            email:req.body.email
+            //or req.body
+        },(err,user)=>{
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorised');
+    }
 };
 
 module.exports.signup=(req,res)=>{

@@ -2,9 +2,23 @@
  <link rel="stylesheet" href="/css/user_profile.css">
         <h1>ur in</h1>
         <!-- //we have created locals -->
-       <%=locals.user%>
-        <h1>Name : <%= user.name%></h1>
-        <h1>Email : <%= user.email%></h1>
+       <!-- <%=locals.user%> -->
+       <%=profile_user%>
+        
+       <%if(user.id == profile_user.id){%>
+              <h1>Name: <%= profile_user.name%></h1>
+              <h1>Email:<%= profile_user.email%></h1>
+              <form action="/users/update/<%= profile_user.id%>" method="POST">
+                     <input type="text" name="name" id="" placeholder="name to be update" required>
+                     <input type="email" name="email" id="" placeholder="enter ur updated email" required>
+                     <input type="submit" value="update">
+              </form>
+       <%}else{%>
+              <h1>Name: <%= profile_user.name%></h1>
+              <h1>Email:<%= profile_user.email%></h1>
+       <%}%> 
 
         <h1>welcome</h1>
+
+
   

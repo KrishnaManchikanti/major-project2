@@ -1,0 +1,17 @@
+#home-divison{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid green;
+    height: 80vh;
+    #feed-posts{
+        border: 2px solid rgb(45, 0, 128);
+        width: 60%;
+        overflow: scroll;
+        
+    }
+    #user-friends{
+        width: 30%;
+        border: 2px solid rgb(128, 68, 0);
+        overflow: scroll;
+    }
+}
