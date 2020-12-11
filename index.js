@@ -13,6 +13,9 @@ const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);
 //using scss for better writing css
 const sassMiddleware = require('node-sass-middleware');
+
+const flash = require('connect-flash');
+const flashMware = require('./config/flash-mware');
 app.use(sassMiddleware({
     src:'./assets/scss',//where mysccs folder
     dest:'./assets/css',//after changing scss to css we need to put in css folder
@@ -53,6 +56,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 //whenever user is authenticated, we will store identity to locals(index.js)
 app.use(passport.setAuthenticateduser);
+//after the session bcoz session is used flash
+app.use(flash());
+app.use(flashMware.setFlash);
 app.use('/',require('./routes'));
 
 // killall -9 node

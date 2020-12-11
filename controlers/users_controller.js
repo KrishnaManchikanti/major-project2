@@ -96,11 +96,13 @@ module.exports.signup= async (req,res)=>{
 
 //create session
 module.exports.signin = (req,res)=>{
+    req.flash('success','logged-in successfully');
     return res.redirect('/');
 };
 
 module.exports.signout = (req,res)=>{
     req.logout();
+    req.flash('success','logged-out successfully');
     return res.redirect('/');
 };
 
