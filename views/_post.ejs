@@ -12,6 +12,7 @@
         <%= i.user.email%>
     </small>
     <div class="post-comments">
+        
         <%if(locals.user){%>
             <form action="/comments/create" method="POST">
                 <input type="text" name="content" placeholder="add comment.." required>
@@ -23,10 +24,10 @@
         <div class="post-comments-list">
             
             <ul id="post-comments-<%=i._id%>">
-                <%-include('_comment') -%>
+            
                 <%for(let comments of i.comments){%>
-                    
                     <p>
+                        <%-include('_comment')%>
                         <li><%= comments.content%></li>
                         <small><%=comments.user.email%></small>
                         
@@ -34,6 +35,7 @@
                         <small><a href="/comments/destroy/<%=comments.id%>">X</a></small>
                         <%}%>
                     </p>
+                    
                 <%}%>
                 
             </ul>
