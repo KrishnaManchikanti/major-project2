@@ -4,9 +4,12 @@ const Comment = require('../models/comment');//for deleteing comments
 module.exports.create = async (req,res)=>{
     try{
         await Post.create({ content:req.body.content, user:req.user._id});
+        req.flash('success','post-created');
         return res.redirect('back');
     }catch(err){
+        req.flash('error',err);
         console.log(`err ${err}`);
+        return res.redirect('back');
     };
 };
 
@@ -16,12 +19,15 @@ module.exports.destroy = async (req,res)=>{
         if(post.user == req.user.id){
             post.remove();
             await Comment.deleteMany({post: req.params.id});
+            req.flash('success','post & comments are removed');
             return res.redirect('back');
         }else{
+            req.flash('error','not a valid user');
             console.log('not a valid user');
             return res.redirect('back');
         }
     }catch(err){
+        req.flash('error',err);
         return console.log(`err ${err}`);
     }
 };

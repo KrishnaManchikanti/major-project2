@@ -13,10 +13,12 @@ module.exports.create = async (req,res)=>{
             });
             post.comments.push(comment);
             post.save();//while updating
+            req.flash('success','comment posted succesfully');
             console.log(`comment created succesfully${comment}`);
         }
         return res.redirect('back');
     }catch(err){
+        req.flash('error',err);
         console.log('Error async',err);
     }
 };
@@ -32,11 +34,14 @@ module.exports.destroy =async (req,res)=>{
             Comment.remove();
             //updating post by removing commentsid
             await Post.findByIdAndUpdate(postid,{$pull:{comments:req.params.id}});
+            req.flash('success','comment removed');
             return res.redirect('back');
         }else{ 
+            req.flash('error','not a valid user');
             console.log('not a valid user'); return res.redirect('back');
         }
     }catch(err){
+        req.flash('error',err);
         console.log('Error async',err);
     }
 };

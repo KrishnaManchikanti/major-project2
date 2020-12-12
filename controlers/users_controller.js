@@ -49,12 +49,15 @@ module.exports.signup= async (req,res)=>{
         let user = await User.findOne({email:req.body.email});
         if(!user){
             await User.create(req.body);
+            req.flash('success','Your profile created');
             return res.redirect('/users/signin');
         }else{
+            req.flash('error','email already used');
             console.log('email already used');
             res.redirect('back');
         }
     }catch(err){
+        req.flash('error',err);
         console.log(`err ${err}`);
     }
 };
