@@ -1,7 +1,7 @@
 const User = require("../models/user");
-
-
-
+//for deleting
+const fs= require('fs');
+const path =require('path');
 module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
     if(req.isAuthenticated()){
@@ -25,16 +25,32 @@ module.exports.profile=(req,res)=>{
     });
 };
 
-module.exports.update = (req,res)=>{
-    //in params we have profile userid
+module.exports.update = async (req,res)=>{
+    // in params we have profile userid
     if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id,{
-            name:req.body.name,
-            email:req.body.email
-            //or req.body
-        },(err,user)=>{
+        let user = await User.findById(req.params.id);
+        User.uploadedAvatar(req,res,(err)=>{
+            if(err){console.log('err in multer',err)};
+            console.log(req.file);
+            user.name=req.body.name;
+            user.email=req.body.email;
+
+            if(req.file){
+                if(user.avatar){
+                    fs.unlinkSync( path.join(__dirname, '..' , user.avatar) );
+                };
+                user.avatar= User.avatarPath + '/'+req.file.filename;
+            }
+            user.save();
             return res.redirect('back');
         });
+        // User.findByIdAndUpdate(req.params.id,{
+        //     name:req.body.name,
+        //     email:req.body.email
+        //     //or req.body
+        // },(err,user)=>{
+        //     return res.redirect('back');
+        // });
     }else{
         return res.status(401).send('Unauthorised');
     }

@@ -2,47 +2,76 @@ const Comment = require('../models/comment');
 const Post = require('../models/post');
 
 //using asyn await
-module.exports.create = async (req,res)=>{
+
+module.exports.create = async function(req, res){
+
     try{
         let post = await Post.findById(req.body.post);
-        if(post){
+
+        if (post){
             let comment = await Comment.create({
-                content:req.body.content,
-                user:req.user._id,
-                post:req.body.post
+                content: req.body.content,
+                post: req.body.post,
+                user: req.user._id
             });
+
             post.comments.push(comment);
-            post.save();//while updating
-            req.flash('success','comment posted succesfully');
-            console.log(`comment created succesfully${comment}`);
+            post.save();
+
+            if (req.xhr){
+                // Similar for comments to fetch the user's id!
+                comment = await comment.populate('user', 'email').execPopulate();
+    
+                return res.status(200).json({
+                    data: {
+                        comment: comment
+                    },
+                    message: "Post created!"
+                });
+            }
+
+
+            req.flash('success', 'Comment published!');
+
+            res.redirect('/');
         }
-        return res.redirect('back');
     }catch(err){
-        req.flash('error',err);
-        console.log('Error async',err);
+        req.flash('error', err);
+        return;
     }
-};
+    
+}
 
 //using asyn await
 module.exports.destroy =async (req,res)=>{
 
     try{
         let comment= await Comment.findById(req.params.id);
-        let post = await Post.findById(comment.post);
+        
+        Post.findById(comment.post,(err,post)=>{
         if(comment.user == req.user.id || post.user == req.user.id){
-            var postid= comment.post;
-            Comment.remove();
+            let postid= comment.post;
+            comment.remove();
             //updating post by removing commentsid
-            await Post.findByIdAndUpdate(postid,{$pull:{comments:req.params.id}});
-            req.flash('success','comment removed');
+            let post = Post.findByIdAndUpdate(postid,{$pull:{comments:req.params.id}});
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "comment deleted"
+                });
+            }
+            req.flash('success','comment deleted!');
             return res.redirect('back');
         }else{ 
             req.flash('error','not a valid user');
             console.log('not a valid user'); return res.redirect('back');
         }
+    });
     }catch(err){
         req.flash('error',err);
-        console.log('Error async',err);
+        return console.log('Error async',err);
     }
 };
 
