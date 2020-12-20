@@ -2,6 +2,7 @@ const User = require("../models/user");
 //for deleting
 const fs= require('fs');
 const path =require('path');
+
 module.exports.SignUpPage=(req,res)=>{
     console.log(req.cookies);
     if(req.isAuthenticated()){
