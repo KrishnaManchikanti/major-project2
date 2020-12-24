@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
+
 //connect mongo need an extra argument, the express-session to store the cookie
 const MongoStore = require('connect-mongo')(session);
 //using scss for better writing css
