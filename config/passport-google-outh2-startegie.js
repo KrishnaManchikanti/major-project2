@@ -7,7 +7,7 @@ const User = require('../models/user');
 passport.use(new googleStrategy({
     clientID: "109599224978-ir97usev2rgk0g319coass5nk8fn53ml.apps.googleusercontent.com",
     clientSecret:"ypLQs4JmB-75mGkC2afJ_joE",
-    callbackURL:"http://localhost:8000/users/auth/google/callback"
+    callbackURL:"http://localhost:8001/users/auth/google/callback"
 },
     (accessToken, refreshToken, profile, done)=>{
         //finduser
@@ -22,10 +22,10 @@ passport.use(new googleStrategy({
                     //create and signin
                     User.create({
                         name:profile.displayName,
-                        email:profile.email,
-                        passport:crypto.randomBytes(20).toString('hex')
+                        email:profile.emails[0].value,
+                        password:crypto.randomBytes(20).toString('hex')
                     },(err,user)=>{
-                        if(err){console.log(` err  ${err}`);return;}
+                        if(err){console.log(` error here  ${err}`);return;}
                         return done(null,user);
                     });
                 }
