@@ -7,7 +7,7 @@ module.exports.create = async function(req, res){
 
     try{
         let post = await Post.findById(req.body.post);
-
+        
         if (post){
             let comment = await Comment.create({
                 content: req.body.content,
@@ -46,8 +46,10 @@ module.exports.create = async function(req, res){
 module.exports.destroy =async (req,res)=>{
 
     try{
+        console.log(req.params.id);
+        console.log(Comment.find({_id:req.params.id}));
         let comment= await Comment.findById(req.params.id);
-        
+        console.log(comment);
         Post.findById(comment.post,(err,post)=>{
         if(comment.user == req.user.id || post.user == req.user.id){
             let postid= comment.post;
