@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const commentsMailer = require('../mailers/comments_mailer');
 const commentEmailWorker = require('../workers/comment_email_worker');
 const queue = require('../config/kue');
+const Like = require('../models/like');
 //using asyn await
 
 module.exports.create = async function(req, res){
@@ -49,19 +50,19 @@ module.exports.create = async function(req, res){
 }
 
 //using asyn await
-module.exports.destroy =async (req,res)=>{
+module.exports.destroy = async (req,res)=>{
 
     try{
-        console.log(req.params.id);
-        console.log(Comment.find({_id:req.params.id}));
+        
         let comment= await Comment.findById(req.params.id);
-        console.log(comment);
-        Post.findById(comment.post,(err,post)=>{
+        
+        
         if(comment.user == req.user.id || post.user == req.user.id){
             let postid= comment.post;
             comment.remove();
             //updating post by removing commentsid
-            let post = Post.findByIdAndUpdate(postid,{$pull:{comments:req.params.id}});
+            let post =  Post.findByIdAndUpdate(postid,{$pull:{comments:req.params.id}});
+            await Like.deleteMany({likeable: comment._id, onModel:'Comment'});
             if (req.xhr){
                 return res.status(200).json({
                     data: {
@@ -76,7 +77,7 @@ module.exports.destroy =async (req,res)=>{
             req.flash('error','not a valid user');
             console.log('not a valid user'); return res.redirect('back');
         }
-    });
+    
     }catch(err){
         req.flash('error',err);
         return console.log('Error async',err);

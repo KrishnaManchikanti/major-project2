@@ -62,6 +62,12 @@ class PostComments{
                             <small>
                                 ${comment.user.email}
                             </small>
+
+                            <small>
+                        <a class="toogle-like-button" data-likes="0" href="/likes/toggle/?id=${cooment._id}&type=Comment" >
+                            0 Likes
+                        </a>
+                            </small>
                         </p>    
 
                 </li>`);
