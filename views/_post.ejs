@@ -7,7 +7,7 @@
         </small>
     <%}%>
 
-    <%= i.content%>
+    <%= i.content%> <button id="like"><i class="far fa-thumbs-up" >count</i> g</button>
     <small>
         <!-- the id in the user(post) is replaced by actual user -->
         <%= i.user.email%>
@@ -29,7 +29,7 @@
                 <%for(let comments of i.comments){%>
                     <p>
                        
-                        <li><%= comments.content%></li>
+                        <li><%= comments.content%></li> 
                         <small><%=comments.user.email%></small>
                         
                         <%if (locals.user && (locals.user.id == comments.user.id || i.user.id == locals.user.id)){%>
