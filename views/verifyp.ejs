@@ -1,0 +1,16 @@
+
+<form action="/reset/newP?accessToken=<%=accessToken%>" method="POST" >
+    <span>Change Password</span>
+    <% if(false){ %>
+    <div>Error</div>
+    <% } %>
+    <div >
+      <input type="password" name="password" placeholder="New Password" required />
+    </div>
+    <div ">
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+    </div>
+    <div ">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
