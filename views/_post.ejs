@@ -6,8 +6,15 @@
             <a class='delete-post-button' href="/posts/destroy/<%=i.id%>">X</a>
         </small>
     <%}%>
+    
+    <% if(locals.user){%>
+        <%= i.content%>
+        <%=i.likes.length %>  <a class="toogle-like-button" data-likes="<%=i.likes.length%>" href="/likes/toggle/?id=<%=i._id%>&type=Post"><i class="far fa-thumbs-up" > </i> </a>
+        
+    <%}else{%>
+        <%=i.likes.length%> 
+    <%} %>
 
-    <%= i.content%> <button id="like"><i class="far fa-thumbs-up" >count</i> g</button>
     <small>
         <!-- the id in the user(post) is replaced by actual user -->
         <%= i.user.email%>
@@ -31,7 +38,14 @@
                        
                         <li><%= comments.content%></li> 
                         <small><%=comments.user.email%></small>
-                        
+                        <% if(locals.user){%>
+                           
+                            <%=comments.likes.length %>  <a class="toogle-like-button" data-likes="<%=comments.likes.length%>" href="/likes/toggle/?id=<%=comments._id%>&type=Comment"><i class="far fa-thumbs-up" > </i> </a>
+                            
+                        <%}else{%>
+                            <%=comments.likes.length%> 
+                        <%} %>
+
                         <%if (locals.user && (locals.user.id == comments.user.id || i.user.id == locals.user.id)){%>
                         <small><a href="/comments/destroy/<%=comments.id%>">X</a></small>
                         <%}%>

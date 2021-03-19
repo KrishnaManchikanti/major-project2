@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "my bigproj",
   "main": "index.js",
+  
   "dependencies": {
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
@@ -23,11 +24,13 @@
     "passport-google-oauth": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
+    
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "brew services restart mongodb-community",
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,7 @@
 
  <link rel="stylesheet" href="/css/user_profile.css">
  <script src="https://kit.fontawesome.com/30de5c5648.js" crossorigin="anonymous"></script>
+ <script src="/js/make_friendship"></script>
 <img src="<%=user.avatar%>" alt="<%=user.name%>" width="100">
 
         <h1>ur in</h1>
@@ -20,9 +21,8 @@
        <%}else{%>
               <h1>Name: <%= profile_user.name%></h1>
               <h1>Email:<%= profile_user.email%></h1>
+              <a id="friend-ship" href="/friendship/?from=<%=user.id%>&to=<%=profile_user.id %>">ADD <%=profile_user.name%> AS FRIEND</a>
        <%}%> 
-
+       
         <h1>welcome</h1>
 
-
-  
