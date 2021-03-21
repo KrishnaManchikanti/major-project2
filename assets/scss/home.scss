@@ -1,17 +1,15 @@
-#home-divison{
+#home-container{
     display: flex;
-    justify-content: space-between;
-    // border: 2px solid green;
-    height: 80vh;
+    
     #feed-posts{
-        border-right: 2px solid rgb(45, 0, 128);
-        width: 60%;
-        overflow: scroll;
-        
+        width: 70%;
+        padding: 10px;
     }
+
     #user-friends{
         width: 30%;
-        // border: 2px solid rgb(128, 68, 0);
-        overflow: scroll;
+        padding: 10px;
+        border-left: 1px solid lightgrey;
+        height: 100%;
     }
 }

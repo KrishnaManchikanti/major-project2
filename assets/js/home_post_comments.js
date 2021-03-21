@@ -1,9 +1,16 @@
+// Let's implement this via classes
+
+// this class would be initialized for every post on the page
+// 1. When the page loads
+// 2. Creation of every post dynamically via AJAX
+
 class PostComments{
     // constructor is used to initialize the instance of the class whenever a new instance is created
     constructor(postId){
         this.postId = postId;
         this.postContainer = $(`#post-${postId}`);
         this.newCommentForm = $(`#post-${postId}-comments-form`);
+
         this.createComment(postId);
 
         let self = this;
@@ -13,8 +20,8 @@ class PostComments{
         });
     }
 
+
     createComment(postId){
-        
         let pSelf = this;
         this.newCommentForm.submit(function(e){
             e.preventDefault();
@@ -29,6 +36,8 @@ class PostComments{
                     $(`#post-comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
+                    // CHANGE :: enable the functionality of the toggle like button on the new comment
+                    new ToggleLike($(' .toggle-like-button', newComment));
                     new Noty({
                         theme: 'relax',
                         text: "Comment published!",
@@ -49,7 +58,8 @@ class PostComments{
 
 
     newCommentDom(comment){
-        // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
+        // CHANGE :: show the count of zero likes on this comment
+
         return $(`<li id="comment-${ comment._id }">
                         <p>
                             
@@ -60,14 +70,16 @@ class PostComments{
                             ${comment.content}
                             <br>
                             <small>
-                                ${comment.user.email}
+                                ${comment.user.name}
+                            </small>
+                            <small>
+                            
+                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                    0 Likes
+                                </a>
+                            
                             </small>
 
-                            <small>
-                        <a class="toogle-like-button" data-likes="0" href="/likes/toggle/?id=${cooment._id}&type=Comment" >
-                            0 Likes
-                        </a>
-                            </small>
                         </p>    
 
                 </li>`);
@@ -100,35 +112,3 @@ class PostComments{
         });
     }
 }
-    // let createComment = ()=>{       
-    //     let newCommentForm = $('#new-comment-form');
-        
-    //     newCommentForm.submit( (e)=>{
-    //         e.preventDefault();
-    //         //using ajax for manual submission
-    //         $.ajax({
-    //             type:'post',
-    //             url:'/comments/create',
-    //             data: newCommentForm.serialize(),
-    //             success:(data)=>{
-    //                 console.log(data.data);
-    //                 let newComment= newCommentDom(data.data);
-                    
-    //                 $('#post-comments-list').prepend(newComment);
-    //             },
-    //             error:(error)=>{
-    //                 console.log('error');
-    //             }
-    //         });
-            
-    //     } );
-    // };
-
-    // let newCommentDom = (comments)=>{
-    //     return $(`
-    //         <p>
-    //             <li>${ comments.content}</li>
-    //             <small><a href="/comments/destroy/${comments.id}">X</a></small>
-    //         </p>
-    //     `);
-    // }

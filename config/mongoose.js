@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/MJ2_development', { useNewUrlParser: true,useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect('mongodb://localhost/codeial_development4');
 
-const db =  mongoose.connection;
+const db = mongoose.connection;
 
-db.on('error', console.error.bind(console,"err in connecting db"));
+db.on('error', console.error.bind(console, "Error connecting to MongoDB"));
 
-db.once('open',()=>{
-    console.log('success connecting db');
+
+db.once('open', function(){
+    console.log('Connected to Database :: MongoDB');
 });
+
 
 module.exports = db;

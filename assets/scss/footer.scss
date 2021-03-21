@@ -1,17 +1,18 @@
-#footer{
-    height: 50px;
-    background-color: green;
-    display: flex;
-    justify-content: space-around;
+#layout-footer{
+    color: white;
     a{
-        margin-top:15px ;
         color: white;
         text-decoration: none;
-        font-size: 20px;
     }
-    #copy-right{
-        margin-top:15px ;
-        color: white;
-        font-size: 20px;
+
+    background: grey;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: flex-start;
+
+    .footer-nav{
+        ul{
+            list-style: none;
+        }
     }
 }
