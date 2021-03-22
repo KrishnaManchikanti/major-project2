@@ -20,16 +20,36 @@
                 </ul>
             </div>
         </section>
+        <div id="aside">
+            <section id="list-of-friends">
+                
+                <% if(locals.user){ %>
+                    <h4>Friends</h4>
+                    <!-- <%=user.friendships%> -->
+                    <%for(let i=0; i<all_users.length;i++){%>
+                        <%if(all_users[i].id==user.id){%>
+                            <%for(let j=0; j<all_users.length;j++){%>
+                                <a  id="changebutton" href="/users/add-friend/?from_user=<%=user.id%>&to_user=<%= %>">X</a>
+                                <%=all_users[i].friendships[j]%>
+                            <%} %>
+                        <%} %>
+                    <% } %> 
+                <% } %>
+               
+            </section>
+    
+            <section id="list-of-users">
+                <h4>Users</h4>
+                <% for(u of all_users){%>
+                    <p>
+                        <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+                    </p>
+                <% } %>
+            </section>
+        </div>
         
+
         
-        <section id="user-friends">
-            <h4>Friends</h4>
-            <% for(u of all_users){%>
-                <p>
-                    <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-                </p>
-            <% } %>
-        </section>
 </div>
 
 <!-- importing this script for creating the comments -->

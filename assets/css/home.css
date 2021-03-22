@@ -8,3 +8,12 @@
     padding: 10px;
     border-left: 1px solid lightgrey;
     height: 100%; }
+  #home-container #aside {
+    height: 600px;
+    width: 25%;
+    padding: 10px; }
+    #home-container #aside #list-of-friends {
+      height: 50%;
+      overflow: scroll; }
+    #home-container #aside #list-of-users {
+      overflow: scroll; }

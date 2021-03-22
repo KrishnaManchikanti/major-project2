@@ -2,7 +2,6 @@ const Like = require("../models/like");
 const Post =  require("../models/post");
 const Comment = require('../models/comment');
 
-
 module.exports.toggleLike = async function(req, res){
     try{
 
@@ -47,7 +46,7 @@ module.exports.toggleLike = async function(req, res){
 
         }
 
-        return res.json(200, {
+        return res.status(200).json({
             message: "Request successful!",
             data: {
                 deleted: deleted

@@ -1,6 +1,9 @@
+const Friendship = require('../models/friendship');
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+
+
 
 // let's keep it same as before
 module.exports.profile = function(req, res){
@@ -13,6 +16,52 @@ module.exports.profile = function(req, res){
 
 }
 
+module.exports.addfriend = async (req,res)=>{
+
+    try {
+        let user = await User.findById(req.query.from_user);
+        // let toUser = await User.findById(req.query.to_user);
+        
+        var val =false;
+        console.log(req.query,"contoller");
+        for (let i = 0; i < user.friendships.length; i++) {
+            
+            if( user.friendships[i]==req.query.to_user){
+                console.log("you r friends already");
+                req.flash('success', 'you r friends already!');
+                val=true;
+            }
+          }
+
+          if(val==false){
+              console.log(req.query.to_user);
+            user.friendships.push(req.query.to_user);
+            // toUser.friendships.push(req.query.from_user);
+            await Friendship.create({
+                from_user:req.query.from_user,
+                to_user:req.query.to_user
+            });
+            user.save();
+            // toUser.save();
+            req.flash('success', 'friendlist updated');
+          }
+        
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    users:req.query
+                }
+            });
+        };
+
+        
+        return res.redirect('back');
+
+    } catch (error) {
+        console.log("err in frieContr",error);
+    }
+    
+};
 
 module.exports.update = async function(req, res){
    

@@ -2,7 +2,7 @@
 
 <img src="<%= user.avatar %>" alt="<%= user.name %>" width="100">
 
-
+<script src="/js/home_friends.js"></script>
 
 <% if(user.id == profile_user.id){ %>
     <!-- if user matches then show the form -->
@@ -13,9 +13,11 @@
         <input type="file" name="avatar" placeholder="Profile Picture">
         <input type="submit"  value="Update">
     </form>
+
+    
     
 <%}else{%>    
-    <!-- else show only the profile info -->
+    <a  id="changebutton" href="/users/add-friend/?from_user=<%=user.id%>&to_user=<%=profile_user.id %>"> ADD AS FRIEND</a>
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>
 <%} %>
