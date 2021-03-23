@@ -10,6 +10,7 @@ router.post('/update/:id', passport.checkAuthentication, usersController.update)
 router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
 router.get('/add-friend',usersController.addfriend);
+router.get('/remove-friend',usersController.removefriend);
 
 router.post('/create', usersController.create);
 

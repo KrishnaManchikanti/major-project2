@@ -16,10 +16,22 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 //websockets//chatserver using socket.io
+// setup the chat server to be used with socket.io
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    next();
+});
+
+
 const chatServer = require('http').Server(app);
-const chatSockets= require('./config/chat_sockets').chatSockets(chatServer);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 
+console.log('chat server is listening on port 5000');
 app.use(sassMiddleware({
     src: './assets/scss',
     dest: './assets/css',

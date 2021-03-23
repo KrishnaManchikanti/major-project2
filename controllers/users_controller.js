@@ -17,8 +17,8 @@ module.exports.profile = function(req, res){
 }
 
 module.exports.addfriend = async (req,res)=>{
-
     try {
+        
         let user = await User.findById(req.query.from_user);
         // let toUser = await User.findById(req.query.to_user);
         
@@ -43,6 +43,7 @@ module.exports.addfriend = async (req,res)=>{
             });
             user.save();
             // toUser.save();
+            
             req.flash('success', 'friendlist updated');
           }
         
@@ -62,6 +63,20 @@ module.exports.addfriend = async (req,res)=>{
     }
     
 };
+
+module.exports.removefriend = async (req,res)=>{
+    console.log(req.query);
+    let friendship = await Friendship.findOne(req.query);
+    if(friendship){
+        friendship.remove();
+        (await friendship).save();
+        console.log('friendhship removed');
+    }
+    let user = await User.findById(req.query.from_user);
+    user.friendships.pull(req.query.to_user);
+    user.save();
+    return res.redirect('/');
+}
 
 module.exports.update = async function(req, res){
    
